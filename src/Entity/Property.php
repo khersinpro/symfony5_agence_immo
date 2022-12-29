@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\PropertyRepository;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Property
 {
-
     const HEAT = [
         1 => 'Fioul',
         2 => 'Gaz',
@@ -26,36 +25,49 @@ class Property
     private $id;
 
     /**
+     *@Assert\Length(min = 10, max = 255, 
+     * minMessage = "Longeur de text minimal autorisé est de {{ limit }} caractères.",
+     * maxMessage = "Longeur de text minimal autorisé est de {{ limit }} caractères.")
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
+     * @Assert\Length(min = 10, max = 500, 
+     * minMessage = "Longeur de text minimal autorisé est de {{ limit }} caractères.",
+     * maxMessage = "Longeur de text minimal autorisé est de {{ limit }} caractères.")
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
+     * @Assert\Range(min = 10, max = 500, 
+     * minMessage = "La surface minimal autorisé est de {{ min }}m².",
+     * maxMessage = "La surface minimal autorisé est de {{ max }}m².")
      * @ORM\Column(type="integer")
      */
     private $surface;
 
     /**
+     * @Assert\Positive(message = "Le nombre de pièces doit être positif.")
      * @ORM\Column(type="integer")
      */
     private $rooms;
 
     /**
+     * @Assert\PositiveOrZero(message = "Le nombre de chambre doit être positif.")
      * @ORM\Column(type="integer")
      */
     private $bedrooms;
 
     /**
+     * @Assert\PositiveOrZero(message = "Le nombre d'étages doit être positif.")
      * @ORM\Column(type="integer")
      */
     private $floor;
 
     /**
+     * @Assert\Positive(message = "Le prix est incorrect.")
      * @ORM\Column(type="integer")
      */
     private $price;
@@ -76,6 +88,7 @@ class Property
     private $address;
 
     /**
+     * @Assert\Regex("/^[0-9]{5}$/")
      * @ORM\Column(type="string", length=255)
      */
     private $postal_code;
