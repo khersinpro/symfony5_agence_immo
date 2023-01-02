@@ -22,23 +22,12 @@ class PropertyController extends AbstractController
      */
     public function index(): Response
     {
-
-        // $property = new Property();
-        // $property->setTitle('Mon premier bien')
-        //     ->setDescription('Ce bien est vraiment trés jolie.')
-        //     ->setSurface(300)
-        //     ->setRooms(12)
-        //     ->setBedrooms(5)
-        //     ->setFloor(2)
-        //     ->setPrice(150000)
-        //     ->setHeat(1)
-        //     ->setCity('Marseille')
-        //     ->setAddress('ceci est une adress')
-        //     ->setPostalCode('code postal');
-        // $propertyRepository->add($property, true);
+        $properties = $this->propertyRepository->findAllVisible();
 
         return $this->render('property/index.html.twig', [
             'current_menu' => 'properties',
+            'properties' => $properties
+
         ]);
     }
 
