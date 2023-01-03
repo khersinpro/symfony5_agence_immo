@@ -29,6 +29,7 @@ class PropertyController extends AbstractController
         $search = new PropertySearch();
         $form = $this->createForm(PropertySearchType::class, $search);
         $form->handleRequest($request);
+        dump($search->getOptions());
 
         $properties =  $paginator->paginate(
             $this->propertyRepository->findAllVisibleQuery($search),
